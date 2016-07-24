@@ -1,0 +1,48 @@
+{{template "header"}}
+	<title>分类</title>
+</head>
+<body>
+	{{template "navbar" .}}
+	<div class="container">
+		<h1>分类列表</h1>
+		<form method="GET" action="/category">
+		  <div class="form-group">
+		    <label>分类名称</label>
+		    <input type="hidden" name="op" value="add"></input>
+		    <input id="name" class="form-control" placeholder="请输入分类名称" name="name">
+		  </div>
+		
+		  <button type="submit" class="btn btn-default" onclick="return checkInput();">添加</button>
+		  
+		</form>
+		<script type="text/javascript">
+			function checkInput(){	
+				var name = $("#name").val()
+				if (name=="") {alert("请输入分类名称");return false;}
+				return true;
+			}
+		</script>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>名称</th>
+					<th>文章数</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{range .Categories}}
+					<tr>
+					<th>{{.Id}}</th>
+					<th>{{.Title}}</th>
+					<th>{{.TopicCount}}</th>
+					<th><a href="/category?op=del&id={{.Id}}">删除</a></th>
+					</tr>
+				{{end}}
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
